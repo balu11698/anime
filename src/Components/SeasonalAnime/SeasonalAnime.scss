@@ -1,4 +1,8 @@
 .seasonalAnimeWrapper {
+  margin-bottom: 5px;
+  .seasonalAnimeHeader {
+    margin-bottom: 5px;
+  }
   .seasonalAnime {
     display: flex;
     width: 100%;
@@ -7,15 +11,39 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      margin-right: 10px;
       .animeDetailsWrapper {
         position: absolute;
         bottom: 0;
-        background: lightblue;
         width: 100%;
+        font-size: 14px;
+        padding-bottom: 5px;
+        background-image: url(../../assets/image_box_shadow_bottom.png);
+        background-size: 100% 100%;
+        color: white;
+        width: calc(100% - 10px);
+        padding: 5px;
+        .animeTitle {
+          white-space: nowrap;
+          overflow: hidden;
+        }
         .animeDetails {
           display: flex;
           justify-content: space-between;
+          align-items: center;
+          .animeScore {
+            display: flex;
+            align-items: center;
+            .ratingStar {
+              color: #ffff5e;
+              font-size: 20px;
+            }
+          }
         }
+      }
+      .animeImage {
+        max-width: 200px;
+        max-height: 250px;
       }
     }
   }

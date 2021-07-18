@@ -7,7 +7,7 @@ export const fetchSeasonalAnime = (season, year) => {
 }
 export const fetchTopAnime = () => {
     return new Promise((resolve, reject) => {
-        resolve(axios.get(`https://api.jikan.moe/v3/top/anime/1/upcoming`).then(response => response.data));
+        resolve(axios.get(`https://api.jikan.moe/v3/top/anime/1`).then(response => response.data));
     })
 }
 export const fetchQuotes = () =>{

@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { fetchSeasonalAnime } from '../../ApiService/api';
 import SeasonalAnimeFilter from './SeasonalAnimeFilter/SeasonalAnimFilter';
 import Skeleton from '@material-ui/lab/Skeleton';
+import StarIcon from '@material-ui/icons/Star';
 import './SeasonalAnime.scss'
 
 
@@ -16,7 +17,6 @@ const SeasonalAnime = (props) => {
     setSeasonalAnimeData(data);
     setIsLoading(false)
   })
-  console.log(seasonalAnimeData)
   useEffect(() => {
     setIsLoading(true)
     getSeasonalAnimeData();
@@ -27,20 +27,20 @@ const SeasonalAnime = (props) => {
 
   return (
     <div className="seasonalAnimeWrapper">
-      Seasonal Anime
+      <div className="seasonalAnimeHeader">Seasonal Anime</div>
       <div className="seasonalAnime">
         {(!isLoading) ? (props.page ?
-          seasonalAnimeData?.anime.slice(0, 15).map(anime => {
+          seasonalAnimeData?.anime.slice(0, 20).map(anime => {
             return (
               <div className="anime" key={anime.mal_id}>
                 <div className="animeDetailsWrapper">
                   <div className="animeTitle">{anime.title}</div>
                   <div className="animeDetails">
-                    <div className="animeEpisodes">Episodes : {anime.episodes}</div>
-                    <div className="animeScore">{anime.score}</div>
+                    <div className="animeEpisodes">{anime.episodes ? `Episodes : ${anime.episodes}` : null}</div>
+                    <div className="animeScore"><StarIcon className="ratingStar" />{anime.score}</div>
                   </div>
                 </div>
-                <div><img src={anime.image_url} /></div>
+                <div><img className="animeImage" src={anime.image_url} /></div>
               </div>
             );
           })
@@ -49,8 +49,16 @@ const SeasonalAnime = (props) => {
           seasonalAnimeData?.anime.map(anime => {
             return (
               <div className="anime" key={anime.mal_id}>
-                <div>{anime.title}</div>
-                <div><img src={anime.image_url} /></div>
+                <div className="animeDetailsWrapper">
+                  <div className="animeTitle">{anime.title}</div>
+                  <div className="animeDetails">
+                    <div className="animeEpisodes">Episodes : {anime.episodes}</div>
+                    <div className="animeScore"><StarIcon className="ratingStar" />{anime.score}</div>
+                  </div>
+                </div>
+                <div >
+                  <img className="animeImage" src={anime.image_url} />
+                </div>
               </div>
             );
           })
