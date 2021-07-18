@@ -20,18 +20,18 @@ const Quotes = () => {
   }, [])
 
   return (
-    <>
+    <div className="quotesWrapper">
+      <div className="quotesHeader">Quotes</div>
       {!isLoading ?
         <>
-          <div>Quotes</div>
           <div className="cardWrapper">
             {quotes.map(quote => {
               return (
-                <Paper elevation={1} className="card" key={quote.quote}>
-                  <div>Anime Name : {quote.anime}</div>
-                  <div>Character : {quote.character}</div>
-                  <div>Quote : {quote.quote}</div>
-                </Paper>
+                <div className="card" key={quote.quote}>
+                  <div><span className="quoteLabel">Anime Name :</span> {quote.anime}</div>
+                  <div><span className="quoteLabel">Character : </span>{quote.character}</div>
+                  <div><span className="quoteLabel">Quote : </span>{quote.quote}</div>
+                </div>
               )
             })
             }
@@ -39,12 +39,12 @@ const Quotes = () => {
         </>
         :
         <div>
-          {(Array(10).fill(null).map((el , i) => {       
-            return <Skeleton className="cardSkeleton" animation="wave" key={i} variant="rect" height={100} width="100%" />
+          {(Array(10).fill(null).map((el, i) => {
+            return <Skeleton className="cardSkeleton" key={i} variant="rect" height={100} width="100%" />
           }))}
         </div>
       }
-    </>
+    </div>
   );
 }
 export default Quotes;

@@ -30,6 +30,7 @@ const SeasonalAnime = (props) => {
       <div className="seasonalAnimeHeader">Seasonal Anime</div>
       <div className="seasonalAnime">
         {(!isLoading) ? (props.page ?
+
           seasonalAnimeData?.anime.slice(0, 20).map(anime => {
             return (
               <div className="anime" key={anime.mal_id}>
@@ -45,26 +46,31 @@ const SeasonalAnime = (props) => {
             );
           })
           :
-          // <SeasonalAnimeFilter setSeason={setSeason} />   
-          seasonalAnimeData?.anime.map(anime => {
-            return (
-              <div className="anime" key={anime.mal_id}>
-                <div className="animeDetailsWrapper">
-                  <div className="animeTitle">{anime.title}</div>
-                  <div className="animeDetails">
-                    <div className="animeEpisodes">Episodes : {anime.episodes}</div>
-                    <div className="animeScore"><StarIcon className="ratingStar" />{anime.score}</div>
+          <div className="seasonalAnimeDetailsWrapper">
+            <SeasonalAnimeFilter setSeason={setSeason} />
+            <div className="seasonalAnimeDetails">
+            {
+              seasonalAnimeData?.anime.map(anime => {
+                return (
+                  <div className="anime" key={anime.mal_id}>
+                    <div className="animeDetailsWrapper">
+                      <div className="animeTitle">{anime.title}</div>
+                      <div className="animeDetails">
+                        <div className="animeEpisodes">Episodes : {anime.episodes}</div>
+                        <div className="animeScore"><StarIcon className="ratingStar" />{anime.score}</div>
+                      </div>
+                    </div>
+                    <div >
+                      <img className="animeImage" src={anime.image_url} />
+                    </div>
                   </div>
-                </div>
-                <div >
-                  <img className="animeImage" src={anime.image_url} />
-                </div>
+                );
+              })}
               </div>
-            );
-          })
+          </div>
         )
           : <div>
-            <Skeleton animation="wave" variant="rect" height={400} width="100%" />
+            <Skeleton animation="wave" variant="rect" height={250} width="100%" />
           </div>
         }
       </div>

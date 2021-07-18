@@ -9,7 +9,7 @@ const Home = () => {
     <div>
       <SeasonalAnime page="fromHome" />
       <TopAnime />
-      {/* <Quotes /> */}
+      <Quotes />
     </div>
   );
 }

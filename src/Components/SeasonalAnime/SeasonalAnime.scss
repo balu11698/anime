@@ -42,9 +42,16 @@
         }
       }
       .animeImage {
-        max-width: 200px;
+        max-width: 175px;
         max-height: 250px;
       }
+    }
+    .seasonalAnimeDetails {
+      display: flex;
+    }
+    .seasonFilter {
+      position: sticky;
+      left: 0;
     }
   }
 }

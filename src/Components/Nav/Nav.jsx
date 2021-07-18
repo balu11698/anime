@@ -8,7 +8,15 @@ import './Nav.scss'
 
 const Nav = ({ isDarkMode, DarkMode }) => {
   const darkModeHandler = () => {
-    isDarkMode ? DarkMode.setIsDarkMode(false) : DarkMode.setIsDarkMode(true)
+    isDarkMode ? lightMode() :darkMode()
+  }
+  const darkMode = () =>{
+    DarkMode.setIsDarkMode(true)
+    localStorage.setItem("theme","dark")
+  }
+  const lightMode = () =>{
+    DarkMode.setIsDarkMode(false)
+    localStorage.setItem("theme","light")
   }
   return (
     <AppBar style={{ position: "sticky" }}>
@@ -21,7 +29,7 @@ const Nav = ({ isDarkMode, DarkMode }) => {
             {navigationTitles.map(title => {
               return <Link className="navigationLinks" to={title.path} key={title.name}>{title.name}</Link>;
             })}
-            <Brightness4Icon onClick={darkModeHandler} />
+            {isDarkMode ? <Brightness5Icon onClick={darkModeHandler} /> : <Brightness4Icon onClick={darkModeHandler} />}
           </div>
         </div>
       </Toolbar>

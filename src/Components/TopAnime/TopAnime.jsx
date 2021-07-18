@@ -40,7 +40,7 @@ const TopAnime = () => {
         </div>
         :
         <div>
-          <Skeleton animation="wave" variant="rect" height={400} width="100%" />
+          <Skeleton animation="wave" variant="rect" height={250} width="100%" />
         </div>
       }
     </div>

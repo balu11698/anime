@@ -1,9 +1,21 @@
-.card {
+.quotesWrapper {
+  margin-bottom: 5px;
+  .quotesHeader{
+    margin-bottom: 5px;
+  }
+  .card {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
     padding: 10px;
+    background: var(--cardColor);
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+    border-radius: 5px;
+    .quoteLabel{
+      font-weight: 500;
+    }
+  }
 }
-.cardSkeleton{
+.cardSkeleton {
   margin-bottom: 10px;
 }

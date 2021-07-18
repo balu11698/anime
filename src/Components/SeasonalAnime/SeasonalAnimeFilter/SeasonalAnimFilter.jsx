@@ -8,7 +8,7 @@ const SeasonalAnimeFilter = (season) => {
     // season(e.target.value)
   }
   return (
-    <select onChange={seasonHandler}>
+    <select className="seasonFilter" onChange={seasonHandler}>
       {seasons.map(season => {
         return <option key={season} value={season.toLowerCase()}>{season}</option>
       })}

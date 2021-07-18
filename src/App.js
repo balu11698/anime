@@ -6,7 +6,18 @@ import Nav from './Components/Nav/Nav';
 import { navigationTitles } from './Constants/Constants'
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  useEffect(()=>{
+    const theme = localStorage.getItem("theme")
+    if(theme == "light"){
+      setIsDarkMode(false)
+    }
+    else{
+      setIsDarkMode(true)
+    }
+    console.log(theme)
+  },[])
+  console.log(isDarkMode,"darkmodee")
   return (
     <div id="theme" className="containerWrapper" data-theme={isDarkMode ? "dark" : "light"}>
       <Router>
