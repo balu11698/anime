@@ -1,0 +1,22 @@
+.seasonalAnimeWrapper {
+  .seasonalAnime {
+    display: flex;
+    width: 100%;
+    overflow: auto;
+    .anime {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      .animeDetailsWrapper {
+        position: absolute;
+        bottom: 0;
+        background: lightblue;
+        width: 100%;
+        .animeDetails {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+}
