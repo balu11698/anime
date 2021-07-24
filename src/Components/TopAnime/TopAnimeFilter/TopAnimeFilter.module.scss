@@ -1,0 +1,14 @@
+.filtersWrapper {
+  margin-bottom: 5px;
+  .typeFilter {
+    margin-right: 10px;
+    width: 80px;
+    height: 25px;
+    text-transform: capitalize;
+  }
+  .subtypeFilter{
+    width: 100px;
+    height: 25px;
+    text-transform: capitalize;
+  }
+}

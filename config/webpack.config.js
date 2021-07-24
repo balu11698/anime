@@ -59,10 +59,14 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 const swSrc = paths.swSrc;
 
 // style files regexes
-const cssRegex = /\.css$/;
-const cssModuleRegex = /\.module\.css$/;
-const sassRegex = /\.(scss|sass)$/;
-const sassModuleRegex = /\.module\.(scss|sass)$/;
+// const cssRegex = /\.css$/;
+// const cssModuleRegex = /\.module\.css$/;
+// const sassRegex = /\.(scss|sass)$/;
+// const sassModuleRegex = /\.module\.(scss|sass)$/;
+const cssRegex = /\.global\.css$/;
+const cssModuleRegex = /\.css$/;
+const sassRegex = /\.global\.(scss|sass)$/;
+const sassModuleRegex = /\.(scss|sass)$/;
 
 const hasJsxRuntime = (() => {
   if (process.env.DISABLE_NEW_JSX_TRANSFORM === 'true') {
@@ -475,6 +479,7 @@ module.exports = function (webpackEnv) {
                 sourceMap: isEnvProduction
                   ? shouldUseSourceMap
                   : isEnvDevelopment,
+                  camelCase: true,
               }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.

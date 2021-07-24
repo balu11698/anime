@@ -8,8 +8,8 @@ const Home = () => {
   return (
     <div>
       <SeasonalAnime page="fromHome" />
-      <TopAnime />
-      <Quotes />
+      <TopAnime page="fromHome" />
+      {/* <Quotes /> */}
     </div>
   );
 }
