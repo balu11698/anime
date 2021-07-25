@@ -4,12 +4,16 @@ import StarIcon from '@material-ui/icons/Star';
 import { fetchSeasonalAnime } from '../../../ApiService/api';
 import styles from './SeasonalAnimeHome.module.scss'
 import { useTransition, useSpring, animated, config } from 'react-spring';
+import Modal from '@material-ui/core/Modal';
+import ModalComponent from '../../ModalComponent/ModalComponent';
 
 const SeasonalAnimeDetailsHome = () => {
   const [seasonalAnimeData, setSeasonalAnimeData] = useState([])
   const [season, setSeason] = useState("summer");
   const [year, setYear] = useState(2021)
   const [isLoading, setIsLoading] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [modalAnime,setModalAnime] = useState([])
   const getSeasonalAnimeData = useCallback(async () => {
     const data = await fetchSeasonalAnime(season, year);
     setSeasonalAnimeData(data);
@@ -23,7 +27,7 @@ const SeasonalAnimeDetailsHome = () => {
     from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
     enter: { opacity: 1, transform: "translate3d(0px, 0px, 0px)" },
     delay: 500,
-    config: {tension:200,friction:10},
+    config: { tension: 200, friction: 10 },
     // reset: true,
   })
   const spring = useSpring({
@@ -32,6 +36,14 @@ const SeasonalAnimeDetailsHome = () => {
     config: config.wobbly,
     // reset: true
   })
+  const handleOpen = (animeDetails) => {
+    setOpen(true);
+    setModalAnime(animeDetails)
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div style={spring} className={styles.seasonalAnime}>
@@ -40,7 +52,7 @@ const SeasonalAnimeDetailsHome = () => {
           :
           // seasonalAnimeData?.anime?.slice(0, 20).map(anime =>
           seasonalAnime((style, anime) =>
-            <animated.div style={style} className={styles.anime} key={anime.mal_id}>
+            <animated.div style={style} className={styles.anime} key={anime.mal_id} onClick={handleOpen.bind(this, anime)}>
               <div className={styles.animeDetailsWrapper}>
                 <div className={styles.animeTitle}>{anime.title}</div>
                 <div className={styles.animeDetails}>
@@ -52,6 +64,9 @@ const SeasonalAnimeDetailsHome = () => {
             </animated.div>
           )
       }
+      <Modal className={styles.modal} open={open} onClose={handleClose}>
+        <ModalComponent {...{ modalAnime, page: "seasonal" }} />
+      </Modal>
     </div>
   );
 }

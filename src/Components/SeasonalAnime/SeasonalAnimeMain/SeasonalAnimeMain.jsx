@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
 import StarIcon from '@material-ui/icons/Star';
 import { fetchSeasonalAnime, fetchSeasonsArchive } from '../../../ApiService/api';
 import { useTransition, animated, config, useSpring } from 'react-spring';
 import styles from './SeasonalAnimeMain.module.scss'
 import SeasonalAnimeFilter from '../SeasonalAnimeFilter/SeasonalAnimeFilter';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import ModalComponent from '../../ModalComponent/ModalComponent';
+
 
 const SeasonalAnimeDetailsMain = () => {
   const [seasonalAnimeData, setSeasonalAnimeData] = useState([])
   const [seasonArchive, setSeasonArchive] = useState([])
+  const [open, setOpen] = useState(false);
   const [season, setSeason] = useState("summer");
   const [year, setYear] = useState(2021)
   const [isLoading, setIsLoading] = useState(false)
-
+  const [modalAnime,setModalAnime] = useState([])
   const seasonalAnime = useTransition(seasonalAnimeData.anime, {
     from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
     enter: { opacity: 1, transform: "translate3d(0px, 0px, 0px)" },
     delay: 250,
-    config:{tension:200,friction:10},
+    config: { tension: 200, friction: 10 },
     // reset: true,
   })
   const spring = useSpring({
@@ -44,9 +49,27 @@ const SeasonalAnimeDetailsMain = () => {
   }, [])
 
   // console.log(seasonalAnimeData)
+
+  const handleOpen = (animeDetails) => {
+    setOpen(true);
+    setModalAnime(animeDetails)
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const body =
+    // console.log(animeDetails)
+    <div className={styles.paper}>
+      <h2 id="simple-modal-title">Hello</h2>
+      <p id="simple-modal-description">
+        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      </p>
+    </div>
+
+
   return (
-    // <div className="seasonalAnimeDetailsWrapper">
-    //  <div className="seasonalAnimeDetails">
     <React.Fragment>
       <SeasonalAnimeFilter {...{ season, setSeason: { setSeason }, seasonArchive, year, setYear: { setYear } }} />
       {
@@ -55,31 +78,21 @@ const SeasonalAnimeDetailsMain = () => {
           <div className={styles.seasonalAnime}>
             {
               seasonalAnime((style, anime) =>
-                <animated.div style={style} className={styles.anime} key={anime.mal_id}>
-                  <div className={styles.animeDetailsWrapper}>
-                    <div className={styles.animeTitle}>{anime.title}</div>
-                    <div className={styles.animeDetails}>
-                      {anime.episodes ? <div className={styles.animeEpisodes}> Episodes : {anime.episodes} </div> : null}
-                      <div className={styles.animeScore}><StarIcon className={styles.ratingStar} />{anime.score}</div>
+                  <animated.div style={style} className={styles.anime} key={anime.mal_id} onClick={handleOpen.bind(this, anime)}>
+                    <div className={styles.animeDetailsWrapper}>
+                      <div className={styles.animeTitle}>{anime.title}</div>
+                      <div className={styles.animeDetails}>
+                        {anime.episodes ? <div className={styles.animeEpisodes}> Episodes : {anime.episodes} </div> : null}
+                        <div className={styles.animeScore}><StarIcon className={styles.ratingStar} />{anime.score}</div>
+                      </div>
                     </div>
-                  </div>
-                  <img className={styles.animeImage} src={anime.image_url} />
-                </animated.div>
+                    <img className={styles.animeImage} src={anime.image_url} />
+                  </animated.div>
               )
-              //   return (
-              //     <animated.div style={spring} className={styles.anime} key={anime.mal_id}>
-              //       <div className={styles.animeDetailsWrapper}>
-              //         <div className={styles.animeTitle}>{anime.title}</div>
-              //         <div className={styles.animeDetails}>
-              //           {anime.episodes ? <div className={styles.animeEpisodes}> Episodes : {anime.episodes} </div> : null}
-              //           <div className={styles.animeScore}><StarIcon className={styles.ratingStar} />{anime.score}</div>
-              //         </div>
-              //       </div>
-              //       <div><img className={styles.animeImage} src={anime.image_url} /></div>
-              //     </animated.div>
-              //   );
-              // })
             }
+            <Modal className={styles.modal} open={open} onClose={handleClose}>
+              <ModalComponent {...{modalAnime,page : "seasonal"}} />
+            </Modal>
           </div>
       }
 

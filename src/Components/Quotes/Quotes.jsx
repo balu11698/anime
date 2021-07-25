@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import { fetchQuotes } from '../../ApiService/api';
 import Skeleton from '@material-ui/lab/Skeleton';
-import './Quotes.scss'
+import styles from './Quotes.module.scss'
 import { useTransition, animated, config } from 'react-spring';
 
 const Quotes = () => {
@@ -29,17 +29,17 @@ const Quotes = () => {
   })
 
   return (
-    <div className="quotesWrapper">
-      <div className="quotesHeader">Quotes</div>
+    <div className={styles.quotesWrapper}>
+      <div className={styles.quotesHeader}>Quotes</div>
       {!isLoading ?
         <>
           <div className="cardWrapper">
             {
               quotes((style,quote) =>
-                <animated.div style={style} className="card" key={quote.quote}>
-                  <div><span className="quoteLabel">Anime Name :</span> {quote.anime}</div>
-                  <div><span className="quoteLabel">Character : </span>{quote.character}</div>
-                  <div><span className="quoteLabel">Quote : </span>{quote.quote}</div>
+                <animated.div style={style} className={styles.card} key={quote.quote}>
+                  <div><span className={styles.quoteLabel}>Anime Name :</span> {quote.anime}</div>
+                  <div><span className={styles.quoteLabel}>Character : </span>{quote.character}</div>
+                  <div><span className={styles.quoteLabel}>Quote : </span>{quote.quote}</div>
                 </animated.div>
               )
             }
@@ -48,7 +48,7 @@ const Quotes = () => {
         :
         <div>
           {(Array(10).fill(null).map((el, i) => {
-            return <Skeleton className="cardSkeleton" key={i} variant="rect" height={100} width="100%" />
+            return <Skeleton className={styles.cardSkeleton} key={i} variant="rect" height={100} width="100%" />
           }))}
         </div>
       }

@@ -23,7 +23,7 @@ const Nav = ({ isDarkMode, DarkMode }) => {
       <Toolbar>
         <div className="navBar">
           <div className="header">
-            Anime Kun
+            <Link className="navigationLinks" to="/">Anime Kun</Link>
           </div>
           <div className="navigation">
             {navigationTitles.map(title => {

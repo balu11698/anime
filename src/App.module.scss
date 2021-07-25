@@ -11,12 +11,14 @@
   --backgroundColor: #86dfec;
   --textColor: black;
   --cardColor: #b9f5fd;
+  --modalColor: #c5f0f4;
 }
 
 [data-theme="dark"] {
   --backgroundColor: #161625;
   --textColor: white;
   --cardColor: #47475b;
+  --modalColor: #3e3e52;
 }
 .container {
   padding: 20px 50px;
@@ -27,9 +29,8 @@
   min-height: 100vh;
 }
 
-@media screen and (max-width:800px){
+@media screen and (max-width: 800px) {
   .container {
     padding: 20px 20px;
   }
 }
-

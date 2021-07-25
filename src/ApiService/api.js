@@ -28,3 +28,9 @@ export const fetchSeasonsArchive = () => {
     resolve(axios.get('https://api.jikan.moe/v3/season/archive').then(response => response.data));
   })
 }
+
+export const fetchAnimeSchedule = (day) => {
+  return new Promise((resolve, reject) => {
+    resolve(axios.get(`https://api.jikan.moe/v3/schedule/${day}`).then(response => response.data));
+  })
+}

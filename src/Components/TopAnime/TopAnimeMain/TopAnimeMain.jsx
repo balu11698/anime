@@ -11,7 +11,7 @@ const TopAnimeMain = () => {
   const [isLoading, setIsloading] = useState(false)
   const [type, setType] = useState("anime")
   const [subtype, setSubtype] = useState("airing")
-
+console.log(topAnimeData)
   const topAnime = useTransition(topAnimeData.top, {
     from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
     enter: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },

@@ -21,7 +21,7 @@ const TopAnimeHome = () => {
   const topAnime = useTransition(topAnimeData.top, {
     from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
     enter: { opacity: 1, transform: "translate3d(0px, 0px, 0px)" },
-    delay: 500,
+    delay: 0,
     config: {tension:200,friction:10},
     // reset: true,
   })
