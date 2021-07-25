@@ -5,14 +5,14 @@ import styles from './TopAnimeFilter.module.scss'
 const TopAnimeFilter = ({ type, subtype, setType, setSubtype }) => {
   const types = ['anime', 'manga'];
   const animeSubtype = ['airing', 'upcoming', 'tv', 'movie', 'ova', 'special', 'bypopularity', 'favorite'];
-  const mangaSubtype = ['manga', 'novels', 'oneshots', 'doujin', 'manhwa', 'manhua', 'bypopularity', 'favorite'];
-  const typeHandler=(e)=>{
+  const mangaSubtype = ['manga', 'novels', 'oneshots', 'manhwa', 'manhua', 'bypopularity', 'favorite'];
+  const typeHandler = (e) => {
     let value = e.target.value;
     setType.setType(value);
-    if(value == "anime") {
+    if (value == "anime") {
       setSubtype.setSubtype("airing");
     }
-    if(value == "manga"){
+    if (value == "manga") {
       setSubtype.setSubtype("manga");
     }
     console.log(e.target.value)

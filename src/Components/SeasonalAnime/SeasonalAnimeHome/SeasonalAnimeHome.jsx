@@ -2,10 +2,10 @@ import React, { useEffect, useCallback, useState } from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
 import StarIcon from '@material-ui/icons/Star';
 import { fetchSeasonalAnime } from '../../../ApiService/api';
-import  styles from './SeasonalAnimeHome.module.scss'
+import styles from './SeasonalAnimeHome.module.scss'
+import { useTransition, useSpring, animated, config } from 'react-spring';
 
 const SeasonalAnimeDetailsHome = () => {
-  console.log(styles,"classes")
   const [seasonalAnimeData, setSeasonalAnimeData] = useState([])
   const [season, setSeason] = useState("summer");
   const [year, setYear] = useState(2021)
@@ -19,27 +19,38 @@ const SeasonalAnimeDetailsHome = () => {
     setIsLoading(true)
     getSeasonalAnimeData();
   }, [])
+  const seasonalAnime = useTransition(seasonalAnimeData.anime, {
+    from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
+    enter: { opacity: 1, transform: "translate3d(0px, 0px, 0px)" },
+    delay: 500,
+    config: {tension:200,friction:10},
+    // reset: true,
+  })
+  const spring = useSpring({
+    from: { opacity: 0, transform: "translate3d(0%, -10%, 0px)" },
+    to: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },
+    config: config.wobbly,
+    // reset: true
+  })
 
   return (
-    <div className={styles.seasonalAnime}>
+    <div style={spring} className={styles.seasonalAnime}>
       {
-        (isLoading ? <Skeleton animation="wave" variant="rect" height={250} width="100%" />
+        isLoading ? <Skeleton animation="wave" variant="rect" height={240} width="100%" />
           :
-          seasonalAnimeData?.anime?.slice(0, 20).map(anime => {
-            return (
-              <div className={styles.anime} key={anime.mal_id}>
-                <div className={styles.animeDetailsWrapper}>
-                  <div className={styles.animeTitle}>{anime.title}</div>
-                  <div className={styles.animeDetails}>
-                    <div className={styles.animeEpisodes}>{anime.episodes ? `Episodes : ${anime.episodes}` : null}</div>
-                    <div className={styles.animeScore}><StarIcon className={styles.ratingStar} />{anime.score}</div>
-                  </div>
+          // seasonalAnimeData?.anime?.slice(0, 20).map(anime =>
+          seasonalAnime((style, anime) =>
+            <animated.div style={style} className={styles.anime} key={anime.mal_id}>
+              <div className={styles.animeDetailsWrapper}>
+                <div className={styles.animeTitle}>{anime.title}</div>
+                <div className={styles.animeDetails}>
+                  <div className={styles.animeEpisodes}>{anime.episodes ? `Episodes : ${anime.episodes}` : null}</div>
+                  <div className={styles.animeScore}><StarIcon className={styles.ratingStar} />{anime.score}</div>
                 </div>
-                <div><img className={styles.animeImage} src={anime.image_url} /></div>
               </div>
-            );
-          })
-        )
+              <img className={styles.animeImage} src={anime.image_url} />
+            </animated.div>
+          )
       }
     </div>
   );

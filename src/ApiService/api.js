@@ -5,13 +5,13 @@ export const fetchSeasonalAnime = (season, year) => {
     resolve(axios.get(`https://api.jikan.moe/v3/season/${year}/${season}`).then(response => response.data));
   })
 }
-export const fetchTopAnime = (type,subtype) => {
+export const fetchTopAnime = (type, subtype) => {
   console.log(subtype)
   return new Promise((resolve, reject) => {
-    if(subtype){
-    resolve(axios.get(`https://api.jikan.moe/v3/top/${type}/1/${subtype}`).then(response => response.data));
+    if (subtype) {
+      resolve(axios.get(`https://api.jikan.moe/v3/top/${type}/1/${subtype}`).then(response => response.data));
     }
-    else{
+    else {
       resolve(axios.get(`https://api.jikan.moe/v3/top/${type}/1`).then(response => response.data));
     }
   })

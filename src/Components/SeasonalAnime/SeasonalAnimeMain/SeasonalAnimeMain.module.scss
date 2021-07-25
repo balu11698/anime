@@ -1,7 +1,6 @@
 .seasonalAnime {
   display: grid;
   width: 100%;
-  overflow: auto;
   grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
   .anime {
     display: flex;
@@ -53,3 +52,13 @@
     left: 0;
   }
 }
+
+// @keyframes fade-side {
+//   0%{
+//     opacity: 0;
+//   }
+//   100%{
+
+//     opacity: 1;
+//   }
+// }

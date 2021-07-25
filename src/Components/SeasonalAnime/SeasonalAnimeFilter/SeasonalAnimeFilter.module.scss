@@ -1,5 +1,7 @@
 .filtersWrapper {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  animation-name: fade-side;
+  animation-duration: .300s;
   .seasonFilter {
     margin-right: 10px;
     width: 80px;
@@ -8,5 +10,15 @@
   .yearFilter{
     width: 60px;
     height: 25px;
+  }
+}
+@keyframes fade-side{
+  0%{
+    opacity: 0;
+    transform: translate3d(-50px,0px,0px);
+  }
+  100%{
+    opacity: 1;
+    transform: translate3d(0px,0px,0px);
   }
 }

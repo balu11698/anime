@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import styles from './SeasonalAnimeFilter.module.scss'
-
+import { useSpring,animated,config } from 'react-spring';
 
 const SeasonalAnimeFilter = ({ season, setSeason, seasonArchive, year, setYear }) => {
   const [seasonsOfYearArchive, setSeasonsOfYearArchive] = useState([])
@@ -15,7 +15,8 @@ const SeasonalAnimeFilter = ({ season, setSeason, seasonArchive, year, setYear }
     let seasons = seasonArchive.filter(archive => {
       return archive.year == year
     })[0]?.seasons;
-    if (seasons) setSeasonsOfYearArchive(seasons);
+    if (seasons) if (seasons.toString() != seasonsOfYearArchive.toString()) setSeasonsOfYearArchive(seasons);
+  
     // console.log("seasonArchive")
   }, [season, year, seasonArchive]);
 
@@ -39,7 +40,7 @@ const SeasonalAnimeFilter = ({ season, setSeason, seasonArchive, year, setYear }
     setYear.setYear(e.target.value);
   }
 
-  const setSeasonHandler = useCallback(() => {
+  const setSeasonHandler = () => {
     // console.log(seasonsOfYearArchive, "season")
     // console.log(seasons)
     // console.log(seasonsOfYearArchive, "seaonsOfyearout");
@@ -49,15 +50,22 @@ const SeasonalAnimeFilter = ({ season, setSeason, seasonArchive, year, setYear }
       // console.log("inside")
     }
     // console.log("outside1")
-  }, [seasonsOfYearArchive])
+  }
 
+  const spring = useSpring({
+    from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
+    to: { opacity: 1, transform: "translate3d(0px, 0px, 0px)" },
+    config: config.wobbly,
+
+  })
 
   return (
-    <div className={styles.filtersWrapper}>
+    <div style={spring} className={styles.filtersWrapper}>
       <select id="seasons" className={styles.seasonFilter} value={season} onChange={seasonHandler}>
-        {seasonsOfYearArchive?.map(season => {
+        {seasonsOfYearArchive.length!=0 && seasonsOfYearArchive.map(season => {
           return <option key={season} value={season.toLowerCase()}>{season}</option>
         })}
+        {seasonsOfYearArchive.length==0 && <option value="...">Loading...</option>}
       </select>
       <select id="year" className={styles.yearFilter} value={year} onChange={yearHandler} >
         {yearsArchive?.map(year => {
