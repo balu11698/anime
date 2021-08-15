@@ -11,6 +11,11 @@
       height: 240px;
       margin-bottom: 10px;
       cursor: pointer;
+      animation-name: fade-side;
+      animation-duration: .5s;
+      animation-delay: .5s;
+      animation-fill-mode: backwards;
+      animation-timing-function:ease-in-out;
       .animeDetailsWrapper {
         position: absolute;
         bottom: 0;
@@ -58,4 +63,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  @keyframes fade-side {
+    0%{
+      opacity: 0;
+      transform: translate3d(-50px,0px,0px);
+    }
+    40%{
+      transform: translate3d(5px,0px,0px);
+    }
+    80%{
+      transform: translate3d(-5px,0px,0px);
+    }
+    100%{
+      opacity: 1;
+      transform: translate3d(0px,0px,0px);
+    }
   }

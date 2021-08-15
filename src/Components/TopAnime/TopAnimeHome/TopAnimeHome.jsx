@@ -4,10 +4,12 @@ import StarIcon from '@material-ui/icons/Star';
 import { fetchTopAnime } from '../../../ApiService/api';
 import styles from './TopAnimeHome.module.scss'
 import { useTransition, useSpring, animated, config } from 'react-spring';
+import { useHistory } from 'react-router-dom';
 
 const TopAnimeHome = () => {
-  const [topAnimeData, setTopAnimeData] = useState([])
-  const [isLoading, setIsloading] = useState(false)
+  const [topAnimeData, setTopAnimeData] = useState([]);
+  const [isLoading, setIsloading] = useState(false);
+  const history = useHistory();
   const getTopAnime = useCallback(async () => {
     const data = await fetchTopAnime("anime", null);
     setTopAnimeData(data);
@@ -22,7 +24,7 @@ const TopAnimeHome = () => {
     from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
     enter: { opacity: 1, transform: "translate3d(0px, 0px, 0px)" },
     delay: 0,
-    config: {tension:200,friction:10},
+    config: { tension: 200, friction: 10 },
     // reset: true,
   })
 
@@ -34,13 +36,16 @@ const TopAnimeHome = () => {
     delay: 500,
   })
 
+  const animeDetails = anime => history.push(`/anime/${anime.mal_id}`);
+
+
   return (
     <div className={styles.topAnime}>
       {
         isLoading ? <Skeleton animation="wave" variant="rect" height={250} width="100%" />
           :
           topAnime((style, anime) =>
-            <animated.div style={style} className={styles.anime} key={anime.mal_id}>
+            <animated.div style={style} className={styles.anime} key={anime.mal_id} onClick={animeDetails.bind(this, anime)}>
               <div className={styles.animeDetailsWrapper}>
                 <div className={styles.animeTitle}>{anime.title}</div>
                 <div className={styles.animeDetails}>

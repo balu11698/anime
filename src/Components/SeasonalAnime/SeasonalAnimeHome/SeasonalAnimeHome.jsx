@@ -6,6 +6,7 @@ import styles from './SeasonalAnimeHome.module.scss'
 import { useTransition, useSpring, animated, config } from 'react-spring';
 import Modal from '@material-ui/core/Modal';
 import ModalComponent from '../../ModalComponent/ModalComponent';
+import { useHistory } from 'react-router-dom';
 
 const SeasonalAnimeDetailsHome = () => {
   const [seasonalAnimeData, setSeasonalAnimeData] = useState([])
@@ -13,7 +14,8 @@ const SeasonalAnimeDetailsHome = () => {
   const [year, setYear] = useState(2021)
   const [isLoading, setIsLoading] = useState(false)
   const [open, setOpen] = useState(false);
-  const [modalAnime,setModalAnime] = useState([])
+  const [modalAnime, setModalAnime] = useState([])
+  const history = useHistory();
   const getSeasonalAnimeData = useCallback(async () => {
     const data = await fetchSeasonalAnime(season, year);
     setSeasonalAnimeData(data);
@@ -45,14 +47,15 @@ const SeasonalAnimeDetailsHome = () => {
     setOpen(false);
   };
 
+  const animeDetails = anime => history.push(`/anime/${anime.mal_id}`);
+
   return (
     <div style={spring} className={styles.seasonalAnime}>
       {
         isLoading ? <Skeleton animation="wave" variant="rect" height={240} width="100%" />
           :
-          // seasonalAnimeData?.anime?.slice(0, 20).map(anime =>
-          seasonalAnime((style, anime) =>
-            <animated.div style={style} className={styles.anime} key={anime.mal_id} onClick={handleOpen.bind(this, anime)}>
+          seasonalAnimeData?.data?.map(anime =>
+            <div className={styles.anime} key={anime.mal_id} onClick={animeDetails.bind(this, anime)}>
               <div className={styles.animeDetailsWrapper}>
                 <div className={styles.animeTitle}>{anime.title}</div>
                 <div className={styles.animeDetails}>
@@ -60,12 +63,12 @@ const SeasonalAnimeDetailsHome = () => {
                   <div className={styles.animeScore}><StarIcon className={styles.ratingStar} />{anime.score}</div>
                 </div>
               </div>
-              <img className={styles.animeImage} src={anime.image_url} />
-            </animated.div>
+              <img className={styles.animeImage} src={anime.images.jpg.image_url} />
+            </div>
           )
       }
       <Modal className={styles.modal} open={open} onClose={handleClose}>
-        <ModalComponent {...{ modalAnime, page: "seasonal" }} />
+        <ModalComponent {...{ modalAnime, page: "seasonal", open: { setOpen } }} />
       </Modal>
     </div>
   );

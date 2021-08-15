@@ -1,0 +1,66 @@
+.animeDetailsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: center;
+  margin-bottom: 5px;
+  .animeImage {
+    margin-right: 25px;
+    margin-bottom: 5px;
+  }
+  .detailsWrapper {
+    // flex-grow: 1;
+    margin-right: 25px;
+    .details {
+      display: flex;
+    }
+  }
+}
+.infoDetails {
+  display: flex;
+  margin-bottom: 5px;
+  .animeInfoWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    .animeInfo:after {
+      content: ", ";
+      white-space: pre;
+    }
+    .animeInfo:last-of-type:after {
+      content: "";
+    }
+  }
+}
+
+.animeSynopsis {
+  margin-bottom: 10px;
+}
+.animeTrailer {
+  margin-bottom: 10px;
+  height: 325px;
+  max-width: 500px;
+}
+.alternateTitleWrapper {
+  margin-bottom: 10px;
+  .alternateTitle {
+    display: flex;
+  }
+  .synonymWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    .synonym:after {
+      content: ", ";
+      white-space: pre;
+    }
+    .synonym:last-of-type:after {
+      content: "";
+    }
+  }
+}
+
+.detailsLabel {
+  font-weight: 700;
+  min-width: 90px;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+  white-space: nowrap;
+}

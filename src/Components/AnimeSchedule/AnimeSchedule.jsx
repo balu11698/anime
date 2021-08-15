@@ -6,13 +6,14 @@ import ModalComponent from '../ModalComponent/ModalComponent';
 import StarIcon from '@material-ui/icons/Star';
 import styles from './AnimeSchedule.module.scss';
 import AnimeScheduleFilter from './AnimeScheduleFilter/AnimeScheduleFilter';
+import { useHistory } from 'react-router-dom';
 
 const AnimeSchedule = () => {
   const [scheduleData, setScheduleData] = useState([]);
   const [modalAnime, setModalAnime] = useState([]);
   const [open, setOpen] = useState(false)
-  const [day,setDay] = useState("monday");
-
+  const [day, setDay] = useState("monday");
+  const history = useHistory();
   useEffect(() => {
     // const date = new Date();
     // const todaysDay = date.toLocaleDateString('en-us', { weekday: 'long' })
@@ -24,8 +25,8 @@ const AnimeSchedule = () => {
     getAnimeSchedule();
   }, [day])
   useEffect(() => {
-    console.log(scheduleData,day)
-  }, [scheduleData,day])
+    console.log(scheduleData, day)
+  }, [scheduleData])
 
   const scheduleAnime = useTransition(scheduleData[day], {
     from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
@@ -44,14 +45,16 @@ const AnimeSchedule = () => {
     setOpen(false);
   };
 
+  const animeDetails = anime => history.push(`anime/${anime.mal_id}`);
+
 
   return (
     <React.Fragment>
-      <AnimeScheduleFilter {...{setDay:setDay}} />
+      <AnimeScheduleFilter {...{ setDay: setDay }} />
       <div className={styles.seasonalAnime}>
         {
-          scheduleAnime((style, anime) =>
-            <animated.div style={style} className={styles.anime} key={anime.mal_id} onClick={handleOpen.bind(this, anime)}>
+          scheduleData[day]?.map(anime =>
+            <div className={styles.anime} key={anime.mal_id} onClick={animeDetails.bind(this, anime)}>
               <div className={styles.animeDetailsWrapper}>
                 <div className={styles.animeTitle}>{anime.title}</div>
                 <div className={styles.animeDetails}>
@@ -60,7 +63,7 @@ const AnimeSchedule = () => {
                 </div>
               </div>
               <img className={styles.animeImage} src={anime.image_url} />
-            </animated.div>
+            </div>
           )
         }
         <Modal className={styles.modal} open={open} onClose={handleClose}>

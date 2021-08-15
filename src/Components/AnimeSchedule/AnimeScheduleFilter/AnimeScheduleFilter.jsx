@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './AnimeScheduleFilter.module.scss';
 
 const AnimeScheduleFilter = (setDay) => {
-  const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+  const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday","other","unknown"]
 
   const dayHandler = (e) => {
     setDay.setDay(e.target.value);

@@ -5,27 +5,29 @@ import { fetchTopAnime } from '../../../ApiService/api';
 import styles from './TopAnimeMain.module.scss';
 import TopAnimeFilter from '../TopAnimeFilter/TopAnimeFilter';
 import { useTransition, useSpring, animated, config } from 'react-spring';
+import { useHistory } from 'react-router-dom';
 
 const TopAnimeMain = () => {
   const [topAnimeData, setTopAnimeData] = useState([])
   const [isLoading, setIsloading] = useState(false)
   const [type, setType] = useState("anime")
   const [subtype, setSubtype] = useState("airing")
-console.log(topAnimeData)
+  const history = useHistory();
+  console.log(topAnimeData)
   const topAnime = useTransition(topAnimeData.top, {
     from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
     enter: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },
     delay: 250,
-    config: {tension:200,friction:10},
+    config: { tension: 200, friction: 10 },
     // reset:true,
   })
 
   const spring = useSpring({
     from: { opacity: 0, transform: "translate3d(0%, -10%, 0px)" },
     to: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },
-    config: {tension:200,friction:10},
+    config: { tension: 200, friction: 10 },
     // reset: true,
-    delay:1000,
+    delay: 1000,
   })
 
   const getTopAnime = async () => {
@@ -39,6 +41,8 @@ console.log(topAnimeData)
     getTopAnime();
   }, [subtype, type])
 
+  const animeDetails = anime => history.push(`/anime/${anime.mal_id}`);
+
 
   return (
     <React.Fragment>
@@ -48,8 +52,9 @@ console.log(topAnimeData)
         :
         <div className={styles.topAnime}>
           {
-            topAnime((style,anime)=>
-              <animated.div style={style} className={styles.anime} key={anime.mal_id}>
+            // topAnime((style,anime)=>
+            topAnimeData?.top?.map(anime =>
+              <div className={styles.anime} key={anime.mal_id} onClick={animeDetails.bind(this, anime)}>
                 <div className={styles.animeDetailsWrapper}>
                   <div className={styles.animeTitle}>{anime.title}</div>
                   <div className={styles.animeDetails}>
@@ -58,8 +63,8 @@ console.log(topAnimeData)
                   </div>
                 </div>
                 <img className={styles.animeImage} src={anime.image_url} />
-              </animated.div>
-              )
+              </div>
+            )
             // transition((style, anime) =>
             //   <animated.div style={style} className={styles.anime} key={anime.mal_id}>
             //     <div className={styles.animeDetailsWrapper}>
