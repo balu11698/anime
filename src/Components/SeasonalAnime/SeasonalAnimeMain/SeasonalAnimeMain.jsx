@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState, useRef } from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
 import StarIcon from '@material-ui/icons/Star';
 import { fetchSeasonalAnime, fetchSeasonsArchive } from '../../../ApiService/api';
@@ -9,6 +9,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import ModalComponent from '../../ModalComponent/ModalComponent';
 import { useHistory } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
+import { Pagination } from '@material-ui/lab';
 
 
 const SeasonalAnimeDetailsMain = () => {
@@ -19,42 +21,42 @@ const SeasonalAnimeDetailsMain = () => {
   const [year, setYear] = useState(2021);
   const [isLoading, setIsLoading] = useState(false);
   const [modalAnime, setModalAnime] = useState([]);
+  const [pageCount, setPageCount] = useState();
+  const [page, setPage] = useState(1);
+  const isFilterApplied = useRef(false);
   const history = useHistory();
 
-  const seasonalAnime = useTransition(seasonalAnimeData.anime, {
-    from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
-    enter: { opacity: 1, transform: "translate3d(0px, 0px, 0px)" },
-    delay: 250,
-    config: { tension: 200, friction: 10 },
-    // reset: true,
-  })
-  const spring = useSpring({
-    from: { opacity: 0, transform: "translate3d(-50px, 0px, 0px)" },
-    to: { opacity: 1, transform: "translate3d(0px, 0px, 0px)" },
-    config: config.wobbly,
-
-  })
 
   const getSeasonalAnimeData = async () => {
     console.log(season, "inside api")
-    const data = await fetchSeasonalAnime(season, year);
+    const data = await fetchSeasonalAnime(season, year, page);
     setSeasonalAnimeData(data);
+    setPageCount(data.pagination.last_visible_page);
     setIsLoading(false)
   }
+
   useEffect(() => {
+    isFilterApplied.current = true;
+    setPage(1);
+  }, [season, year])
+
+  useEffect(() => {
+    console.log(page, "page")
+    if (isFilterApplied.current && page != 1) return
     setIsLoading(true)
     getSeasonalAnimeData();
-  }, [season, year])
+  }, [season, year, page])
+
   useEffect(() => {
     console.log(seasonalAnimeData);
   }, [seasonalAnimeData])
+
   useEffect(async () => {
     const data = await fetchSeasonsArchive();
     setSeasonArchive(data.archive);
     console.log("seasonArchive api")
   }, [])
 
-  // console.log(seasonalAnimeData)
 
   const handleOpen = (animeDetails) => {
     setOpen(true);
@@ -65,16 +67,12 @@ const SeasonalAnimeDetailsMain = () => {
     setOpen(false);
   };
 
-  const animeDetails = anime => history.push(`/anime/${anime.mal_id}`)
+  const handlePageClick = (e, value) => {
+    isFilterApplied.current = false;
+    setPage(value);
+  }
 
-  const body =
-    // console.log(animeDetails)
-    <div className={styles.paper}>
-      <h2 id="simple-modal-title">Hello</h2>
-      <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
-    </div>
+  const animeDetails = anime => history.push(`/anime/${anime.mal_id}`)
 
 
   return (
@@ -83,28 +81,35 @@ const SeasonalAnimeDetailsMain = () => {
       {
         isLoading ? <Skeleton animation="wave" variant="rect" height={250} width="100%" />
           :
-          <div className={styles.seasonalAnime}>
-            {
-              // seasonalAnime((style, anime) =>
-              seasonalAnimeData?.data?.map(anime =>
-                <div className={styles.anime} key={anime.mal_id} onClick={animeDetails.bind(this, anime)}>
-                  <div className={styles.animeDetailsWrapper}>
-                    <div className={styles.animeTitle}>{anime.title}</div>
-                    <div className={styles.animeDetails}>
-                      {anime.episodes ? <div className={styles.animeEpisodes}> Episodes : {anime.episodes} </div> : null}
-                      <div className={styles.animeScore}><StarIcon className={styles.ratingStar} />{anime.score}</div>
+          <>
+            <div className={styles.seasonalAnime}>
+              {
+                seasonalAnimeData?.data?.map(anime =>
+                  <div className={styles.anime} key={anime.mal_id} onClick={animeDetails.bind(this, anime)}>
+                    <div className={styles.animeDetailsWrapper}>
+                      <div className={styles.animeTitle}>{anime.title}</div>
+                      <div className={styles.animeDetails}>
+                        {anime.episodes ? <div className={styles.animeEpisodes}> Episodes : {anime.episodes} </div> : null}
+                        <div className={styles.animeScore}><StarIcon className={styles.ratingStar} />{anime.score}</div>
+                      </div>
                     </div>
+                    <img className={styles.animeImage} src={anime.images.jpg.image_url} />
                   </div>
-                  <img className={styles.animeImage} src={anime.images.jpg.image_url} />
-                </div>
-              )
-            }
-            <Modal className={styles.modal} open={open} onClose={handleClose}>
-              <ModalComponent {...{ modalAnime, page: "seasonal", open: { setOpen } }} />
-            </Modal>
-          </div>
+                )
+              }
+            </div>
+          </>
       }
-
+      {pageCount == 1 || !pageCount ? null :
+        <Pagination
+          color="primary"
+          onChange={handlePageClick}
+          count={pageCount}
+          page={page}
+          size="small"
+          className="pagination"
+        />
+      }
     </React.Fragment>
     // </div>
     // </div>

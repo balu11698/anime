@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useHistory, useRouteMatch, Route, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { NavLink, useHistory, useRouteMatch, Route, useLocation } from 'react-router-dom';
 import { fetchAnimeById } from '../../ApiService/api';
 import { dynamicRoutePaths } from '../../Constants/Constants';
 import Details from './Details/Details';
@@ -7,6 +7,8 @@ import Characters from './Characters/Characters';
 import styles from './AnimeDetailsHome.module.scss';
 import Videos from './Videos/Videos';
 import Skeleton from '@material-ui/lab/Skeleton';
+import News from './News/News';
+import Pictures from './Pictures/Pictures';
 
 const AnimeDetailsHome = () => {
   const history = useHistory();
@@ -14,7 +16,7 @@ const AnimeDetailsHome = () => {
   const [animeDetails, setAnimeDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { url } = useRouteMatch();
-  const animeId = url.split("/")[2];
+  const animeId = (url.split("/")[2]);
 
   const getAnimeById = async () => {
     const data = await fetchAnimeById(animeId);
@@ -27,9 +29,9 @@ const AnimeDetailsHome = () => {
     setIsLoading(true);
     getAnimeById();
     return () => { mount = true }
-  }, [])
+  }, [url])
   // const { url } = useRouteMatch();
-  console.log(location)
+  console.log(location.pathname, "changed")
 
   return (
     isLoading ? <Skeleton animation="wave" variant="rect" height={250} width="100%" /> :
@@ -39,13 +41,17 @@ const AnimeDetailsHome = () => {
         })} */}
         <h3>{animeDetails?.title}</h3>
         <div className={styles.animeDetailsNavigation}>
-          <Link className={styles.navigationLinks} to={`${url}`}>Details</Link>
-          <Link className={styles.navigationLinks} to={`${url}/characters`}>Characters</Link>
-          <Link className={styles.navigationLinks} to={`${url}/videos`}>Videos</Link>
+          <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}`}>Details</NavLink>
+          <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}/characters`}>Characters</NavLink>
+          <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}/videos`}>Videos</NavLink>
+          <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}/pictures`}>Picures</NavLink>
+          <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}/news`}>News</NavLink>
         </div>
-        <Route path={`${url}/characters`} component={Characters} />
-        <Route path={`${url}/videos`} component={Videos} />
-        <Route exact path={url}>
+        <Route exact path={`${url}/characters`} component={Characters} />
+        <Route exact path={`${url}/videos`} component={Videos} />
+        <Route exact path={`${url}/news`} component={News} />
+        <Route exact path={`${url}/pictures`} component={Pictures} />
+        <Route exact path={url} >
           <Details {...animeDetails} />
         </Route>
       </React.Fragment>

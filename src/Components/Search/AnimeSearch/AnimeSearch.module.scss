@@ -1,4 +1,4 @@
-.seasonalAnime {
+.searchAnime {
   display: grid;
   width: 100%;
   grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
@@ -63,32 +63,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-ul {
-  display: flex;
-  justify-content: center;
-  padding-inline-start: unset;
-  flex-wrap: wrap;
-}
-
-li {
-  display: flex;
-  background: white;
-  border: 1px solid #6fd0ea;
-  padding: 2px;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  border-radius: 5px;
-  color: white;
-}
-.pagination__link--active{
-  background: #cecece;
-}
-a{
-  cursor: pointer;
-  outline: none;
 }
 @keyframes fade-side {
   0%{

@@ -17,7 +17,7 @@ const SeasonalAnimeDetailsHome = () => {
   const [modalAnime, setModalAnime] = useState([])
   const history = useHistory();
   const getSeasonalAnimeData = useCallback(async () => {
-    const data = await fetchSeasonalAnime(season, year);
+    const data = await fetchSeasonalAnime(season, year,1);
     setSeasonalAnimeData(data);
     setIsLoading(false)
   }, [])

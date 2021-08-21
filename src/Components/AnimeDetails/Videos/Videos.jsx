@@ -12,7 +12,7 @@ const Videos = () => {
   const { url } = useRouteMatch();
   const animeId = url.split("/")[2];
   const [animeVideos, setAnimeVideos] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getAnimeVideos = async () => {
     const data = await fetchAnimeVideos(animeId);
@@ -33,7 +33,7 @@ const Videos = () => {
 
   return (
     isLoading ? <Skeleton animation="wave" variant="rect" height={250} width="100%" />  :
-      (animeVideos.length === 0 ? <div>Servers are BUSY try after sometime</div> :
+      (Object.keys(animeVideos) === 0 ? <div>Servers are BUSY try after sometime</div> :
         <div className={styles.videoWrapper}>
           {animeVideos?.promo?.map(video =>
             <div key={video.trailer.youtube_id} className={styles.videoDetails}>

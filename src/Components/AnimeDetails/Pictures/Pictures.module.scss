@@ -1,0 +1,10 @@
+.imageWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  .image {
+    width: 275px;
+    height: 400px;
+    margin-right: 15px;
+    margin-bottom: 25px;
+  }
+}

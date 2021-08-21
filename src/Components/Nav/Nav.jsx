@@ -5,6 +5,7 @@ import { RoutePaths } from '../../Constants/Constants';
 import Brightness5Icon from '@material-ui/icons/Brightness5';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import './Nav.scss'
+import Search from '../Search/Search';
 
 const Nav = ({ isDarkMode, DarkMode }) => {
   const darkModeHandler = () => {
@@ -25,6 +26,7 @@ const Nav = ({ isDarkMode, DarkMode }) => {
           <div className="header">
             <Link className="navigationLinks" to="/">Anime Kun</Link>
           </div>
+          <Search />
           <div className="navigation">
             {RoutePaths.map(title => {
               return <Link className="navigationLinks" to={title.path} key={title.name}>{title.name}</Link>;

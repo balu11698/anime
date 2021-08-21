@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
-import { useHistory,useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch, useLocation } from 'react-router-dom';
 import { fetchAnimeById } from '../../../ApiService/api';
 import styles from './Details.module.scss';
 

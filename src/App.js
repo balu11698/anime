@@ -5,6 +5,7 @@ import { Switch, Route, BrowserRouter as Router, Link } from 'react-router-dom';
 import Nav from './Components/Nav/Nav';
 import { dynamicRoutePaths, RoutePaths } from './Constants/Constants'
 import AnimeDetailsHome from './Components/AnimeDetails/AnimeDetailsHome';
+import AnimeSearch from './Components/Search/AnimeSearch/AnimeSearch';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -31,7 +32,7 @@ function App() {
              {dynamicRoutePaths.map(title => {
               return <Route key={title.name} path={title.path}  component={title.component} />
             })}
-            {/* <Route path={"/anime/:id"} component = {AnimeDetailsHome}></Route> */}
+            <Route path="/search/:id" component={AnimeSearch} />
           </Switch>
           
         </div>

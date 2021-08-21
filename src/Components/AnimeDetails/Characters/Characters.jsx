@@ -9,16 +9,17 @@ const Characters = () => {
   const { url } = useRouteMatch();
   const animeId = url.split("/")[2];
   const [animeCharacters, setAnimeCharacters] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const mount = useRef(true);
 
   const getAnimeCharacters = async () => {
     const data = await fetchAnimeCharacterById(animeId);
+    console.log(data, "data")
     if (mount.current === true && data) {
       setAnimeCharacters(data.data);
       setIsLoading(false);
     }
-    else{
+    else {
       setIsLoading(false);
     }
   }
@@ -32,8 +33,8 @@ const Characters = () => {
   console.log(animeCharacters)
 
   return (
-    isLoading ? <Skeleton animation="wave" variant="rect" height={250} width="100%" />  :
-      (animeCharacters.length === 0 ? <div>Servers are BUSY try after sometime</div> :
+    isLoading ? <Skeleton animation="wave" variant="rect" height={250} width="100%" /> :
+      (!animeCharacters ? <div>Servers are BUSY try after sometime</div> :
         <div className={styles.detailsWrapper}>
           {animeCharacters?.map(data =>
             <div key={data.character.mal_id} className={styles.charactersWrapper}>

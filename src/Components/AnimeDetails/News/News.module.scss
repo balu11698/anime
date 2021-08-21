@@ -1,0 +1,12 @@
+.newsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  .news {
+    margin-right: 15px;
+    margin-bottom: 15px;
+    .images{
+      width:175px;
+      height: 220px;
+    }
+  }
+}
