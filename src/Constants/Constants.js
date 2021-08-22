@@ -5,21 +5,24 @@ import AnimeGenre from "../Components/Genre/AnimeGenre/AnimeGenre";
 import Manga from "../Components/Manga/Manga";
 import Quotes from "../Components/Quotes/Quotes";
 import SeasonalAnime from "../Components/SeasonalAnime/SeasonalAnime";
+import TopCharacters from "../Components/Top Characters/TopCharacters";
 import TopAnime from "../Components/TopAnime/TopAnime";
 
 export const RoutePaths = [
-  { name: "Top", component: TopAnime, path: "/TopAnime" },
+  { name: "Top Anime", component: TopAnime, path: "/TopAnime" },
+  { name: "Top Characters", component: TopCharacters, path: "/TopCharacters" },
   { name: "Seasonal Anime", component: SeasonalAnime, path: "/SeasonalAnime" },
   { name: "Schedule", component: AnimeSchedule, path: "/AnimeSchedule" },
   { name: "Genre", component: AnimeGenre, path: "/AnimeGenre" },
   { name: "Manga", component: Manga, path: "/Manga" },
-  { name: "Quotes", component: Quotes, path: "/Quotes" }
+  { name: "Quotes", component: Quotes, path: "/Quotes" },
+  { name: "Details", component: AnimeDetailsHome, path: "/anime/:id"}
 ]
 
-export const dynamicRoutePaths = [
-  { name: "Details", component: AnimeDetailsHome, path: "/anime/:id",linkPath:"" }
-  // { name: "Characters", component: Characters, path: "/anime/:id/characters",linkPath:"characters" }
-]
+// export const dynamicRoutePaths = [
+  
+//   // { name: "Characters", component: Characters, path: "/anime/:id/characters",linkPath:"characters" }
+// ]
 
 export const animeGenre = [
   { name: "action", id: 1 },
@@ -66,3 +69,8 @@ export const animeGenre = [
   { name: "seinen", id: 42 },
   { name: "josei", id: 43 }
 ]
+
+export const convertTime = (time) => {
+  const date = new Date(time);
+  return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+}

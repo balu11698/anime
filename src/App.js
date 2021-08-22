@@ -29,9 +29,9 @@ function App() {
             {RoutePaths.map(title => {
               return <Route key={title.name} path={title.path}  component={title.component} />
             })}
-             {dynamicRoutePaths.map(title => {
+             {/* {dynamicRoutePaths.map(title => {
               return <Route key={title.name} path={title.path}  component={title.component} />
-            })}
+            })} */}
             <Route path="/search/:id" component={AnimeSearch} />
           </Switch>
           

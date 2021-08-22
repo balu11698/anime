@@ -8,7 +8,6 @@ import styles from './Videos.module.scss';
 const Videos = () => {
 
   const mount = useRef(true);
-
   const { url } = useRouteMatch();
   const animeId = url.split("/")[2];
   const [animeVideos, setAnimeVideos] = useState([]);
@@ -33,7 +32,7 @@ const Videos = () => {
 
   return (
     isLoading ? <Skeleton animation="wave" variant="rect" height={250} width="100%" />  :
-      (Object.keys(animeVideos) === 0 ? <div>Servers are BUSY try after sometime</div> :
+      (animeVideos?.length == 0 ? <div>Servers are BUSY try after sometime</div> :
         <div className={styles.videoWrapper}>
           {animeVideos?.promo?.map(video =>
             <div key={video.trailer.youtube_id} className={styles.videoDetails}>

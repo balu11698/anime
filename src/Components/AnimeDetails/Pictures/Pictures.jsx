@@ -24,7 +24,7 @@ const Pictures = () => {
   console.log(animePictures, "pic")
   return (
     isLoading ? <Skeleton animation="wave" variant="rect" height={250} width="100%" /> :
-      (!animePictures || animePictures?.status) ? <div>Servers are BUSY. Please try again after sometime</div> :
+      (animePictures?.length == 0 || animePictures?.status || !animePictures) ? <div>Servers are BUSY. Please try again after sometime</div> :
         <div className={styles.imageWrapper}>
           {animePictures?.data?.map((pictures, index) =>
             <img className={styles.image} key={index} src={pictures.image_url} />

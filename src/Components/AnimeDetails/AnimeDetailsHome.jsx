@@ -44,7 +44,7 @@ const AnimeDetailsHome = () => {
           <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}`}>Details</NavLink>
           <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}/characters`}>Characters</NavLink>
           <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}/videos`}>Videos</NavLink>
-          <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}/pictures`}>Picures</NavLink>
+          <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}/pictures`}>Pictures</NavLink>
           <NavLink exact className={styles.navigationLinks} activeClassName={styles.active} to={`${url}/news`}>News</NavLink>
         </div>
         <Route exact path={`${url}/characters`} component={Characters} />

@@ -6,6 +6,7 @@
   flex-wrap: wrap;
   .header {
     min-width: fit-content;
+    display: flex;
   }
   .navigation {
     display: flex;

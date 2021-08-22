@@ -1,0 +1,20 @@
+.characterWrapper {
+  min-width: 225px;
+  min-height: 370px;
+  margin-bottom: 20px;
+  background: #303048;
+  padding: 10px;
+  .characterImage {
+    float: left;
+    width: 225px;
+    height: 350px;
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .characterWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}

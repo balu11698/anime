@@ -7,6 +7,7 @@ import StarIcon from '@material-ui/icons/Star';
 import styles from './AnimeSchedule.module.scss';
 import AnimeScheduleFilter from './AnimeScheduleFilter/AnimeScheduleFilter';
 import { useHistory } from 'react-router-dom';
+import { convertTime } from '../../Constants/Constants';
 
 const AnimeSchedule = () => {
   const [scheduleData, setScheduleData] = useState([]);
@@ -57,9 +58,10 @@ const AnimeSchedule = () => {
             <div className={styles.anime} key={anime.mal_id} onClick={animeDetails.bind(this, anime)}>
               <div className={styles.animeDetailsWrapper}>
                 <div className={styles.animeTitle}>{anime.title}</div>
+                <div>Airing time - {convertTime(anime.airing_start)}</div>
                 <div className={styles.animeDetails}>
                   {anime.episodes ? <div className={styles.animeEpisodes}> Episodes : {anime.episodes} </div> : null}
-                  <div className={styles.animeScore}><StarIcon className={styles.ratingStar} />{anime.score}</div>
+                  {anime.score ?<div className={styles.animeScore}><StarIcon className={styles.ratingStar} />{anime.score}</div> :null}
                 </div>
               </div>
               <img className={styles.animeImage} src={anime.image_url} />

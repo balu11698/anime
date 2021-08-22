@@ -34,7 +34,7 @@ const Characters = () => {
 
   return (
     isLoading ? <Skeleton animation="wave" variant="rect" height={250} width="100%" /> :
-      (!animeCharacters ? <div>Servers are BUSY try after sometime</div> :
+      (animeCharacters.length==0 ? <div>Servers are BUSY try after sometime</div> :
         <div className={styles.detailsWrapper}>
           {animeCharacters?.map(data =>
             <div key={data.character.mal_id} className={styles.charactersWrapper}>

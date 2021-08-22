@@ -76,3 +76,9 @@ export const fetchAnimePictures = (id) => {
     axios.get(`https://api.jikan.moe/v4/anime/${id}/pictures`).then(response => resolve(response.data)).catch(response => resolve(false));
   })
 }
+
+export const fetchTopCharacters = (page) => {
+  return new Promise((resolve, reject) => {
+    axios.get(`https://api.jikan.moe/v4/top/characters?page=${page}`).then(response => resolve(response.data)).catch(response => resolve(false));
+  })
+}
