@@ -1,7 +1,7 @@
 import React from 'react';
 import { Toolbar, AppBar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { RoutePaths } from '../../Constants/Constants';
+import { LinkPaths } from '../../Constants/Constants';
 import Brightness5Icon from '@material-ui/icons/Brightness5';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import './Nav.scss'
@@ -9,15 +9,15 @@ import Search from '../Search/Search';
 
 const Nav = ({ isDarkMode, DarkMode }) => {
   const darkModeHandler = () => {
-    isDarkMode ? lightMode() :darkMode()
+    isDarkMode ? lightMode() : darkMode()
   }
-  const darkMode = () =>{
+  const darkMode = () => {
     DarkMode.setIsDarkMode(true)
-    localStorage.setItem("theme","dark")
+    localStorage.setItem("theme", "dark")
   }
-  const lightMode = () =>{
+  const lightMode = () => {
     DarkMode.setIsDarkMode(false)
-    localStorage.setItem("theme","light")
+    localStorage.setItem("theme", "light")
   }
   return (
     <AppBar style={{ position: "sticky" }}>
@@ -28,7 +28,7 @@ const Nav = ({ isDarkMode, DarkMode }) => {
           </div>
           <Search />
           <div className="navigation">
-            {RoutePaths.map(title => {
+            {LinkPaths.map(title => {
               return <Link className="navigationLinks" to={title.path} key={title.name}>{title.name}</Link>;
             })}
             {isDarkMode ? <Brightness5Icon onClick={darkModeHandler} /> : <Brightness4Icon onClick={darkModeHandler} />}

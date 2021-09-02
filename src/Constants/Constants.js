@@ -16,11 +16,21 @@ export const RoutePaths = [
   { name: "Genre", component: AnimeGenre, path: "/AnimeGenre" },
   { name: "Manga", component: Manga, path: "/Manga" },
   { name: "Quotes", component: Quotes, path: "/Quotes" },
-  { name: "Details", component: AnimeDetailsHome, path: "/anime/:id"}
+  { name: "Details", component: AnimeDetailsHome, path: "/anime/:id" }
+]
+
+export const LinkPaths = [
+  { name: "Top Anime", path: "/TopAnime" },
+  { name: "Top Characters", path: "/TopCharacters" },
+  { name: "Seasonal Anime", path: "/SeasonalAnime" },
+  { name: "Schedule", path: "/AnimeSchedule" },
+  { name: "Genre", path: "/AnimeGenre" },
+  { name: "Manga", path: "/Manga" },
+  { name: "Quotes", path: "/Quotes" },
 ]
 
 // export const dynamicRoutePaths = [
-  
+
 //   // { name: "Characters", component: Characters, path: "/anime/:id/characters",linkPath:"characters" }
 // ]
 

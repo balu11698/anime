@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState, useRef } from 'react';
+import React, { forwardRef, useEffect, useState, useRef, useContext } from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
 import StarIcon from '@material-ui/icons/Star';
 import { fetchSeasonalAnime, fetchSeasonsArchive } from '../../../ApiService/api';
@@ -11,7 +11,6 @@ import ModalComponent from '../../ModalComponent/ModalComponent';
 import { useHistory } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { Pagination } from '@material-ui/lab';
-
 
 const SeasonalAnimeDetailsMain = () => {
   const [seasonalAnimeData, setSeasonalAnimeData] = useState([]);
@@ -26,7 +25,7 @@ const SeasonalAnimeDetailsMain = () => {
   const isFilterApplied = useRef(false);
   const history = useHistory();
 
-
+  
   const getSeasonalAnimeData = async () => {
     console.log(season, "inside api")
     const data = await fetchSeasonalAnime(season, year, page);
